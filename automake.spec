@@ -68,21 +68,9 @@ perl -pi -e 's/reqd2.test//g' tests/Makefile
 make check	# VERBOSE=1
 %endif
 
-# (Abel) forcefully modify info filename, otherwise info page will refer to
-# old automake
-pushd doc
-makeinfo -I . -o %{name}.info automake.texi
-popd
-
 %install
 rm -rf $RPM_BUILD_ROOT
 %makeinstall_std
-
-rm -f $RPM_BUILD_ROOT/%{_bindir}/{automake,aclocal}
-
-# provide automake/aclocal symlinks
-ln -s automake-%{amversion} $RPM_BUILD_ROOT%{_bindir}/automake
-ln -s aclocal-%{amversion} $RPM_BUILD_ROOT%{_bindir}/aclocal
 
 # provide -1.8 symlinks
 ln -s automake-%{amversion} $RPM_BUILD_ROOT%{_bindir}/automake-1.8
@@ -100,12 +88,6 @@ rm -rf $RPM_BUILD_ROOT
 if [ "$1" = 1 ]; then
   update-alternatives --remove automake %{_bindir}/automake-1.8
   update-alternatives --remove automake %{_bindir}/automake-1.9
-#  if [ -L %{_bindir}/automake ]; then
-#    rm -f %{_bindir}/automake
-#  fi
-#  if [ -L %{_bindir}/aclocal ]; then
-#    rm -f %{_bindir}/aclocal
-#  fi
 fi
 
 %post
