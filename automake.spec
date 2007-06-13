@@ -1,20 +1,18 @@
-%define version 1.9.6
-%define release %mkrel 4
+%define version 1.10
+%define release %mkrel 1
 
-%define amversion 1.9
-%define pkgamversion 1.8
+%define amversion 1.10
 
 %define docheck 1
 %{?_without_check: %global docheck 0}
 
 Summary:	A GNU tool for automatically creating Makefiles
-Name:		automake%{pkgamversion}
+Name:		automake
 Version:	%{version}
 Release:	%{release}
 License:	GPL
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.bz2
-Patch0:		automake-1.9.4-infofiles.patch
 URL:		http://sources.redhat.com/automake/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildArch:	noarch
@@ -22,11 +20,11 @@ BuildArch:	noarch
 Requires:	autoconf >= 1:2.58
 BuildRequires:	autoconf >= 1:2.59-4mdk
 BuildRequires:	texinfo
-Provides:	automake = %{version}-%{release}
 Conflicts:	automake1.5
-Conflicts:	automake < 1.4-22.p6.mdk
 Provides:	automake1.9 = %{version}-%{release}
 Obsoletes:	automake1.9
+Provides:	automake1.8 = %{version}-%{release}
+Obsoletes:	automake1.8
 Requires(post):	/sbin/install-info
 Requires(preun): /sbin/install-info
 Requires(post):	/usr/sbin/update-alternatives
@@ -54,7 +52,6 @@ Autoconf package.
 
 %prep
 %setup -q -n automake-%{version}
-%patch0 -p1 -b .parallel
 
 %build
 # (Abel) config* don't understand noarch-mandrake-linux-gnu arch
@@ -83,38 +80,51 @@ rm -rf $RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT/%{_bindir}/{automake,aclocal}
 
+# provide automake/aclocal symlinks
+ln -s automake-%{amversion} $RPM_BUILD_ROOT%{_bindir}/automake
+ln -s aclocal-%{amversion} $RPM_BUILD_ROOT%{_bindir}/aclocal
+
 # provide -1.8 symlinks
-ln -s automake-%{amversion} $RPM_BUILD_ROOT%{_bindir}/automake-%{pkgamversion}
-ln -s aclocal-%{amversion} $RPM_BUILD_ROOT%{_bindir}/aclocal-%{pkgamversion}
+ln -s automake-%{amversion} $RPM_BUILD_ROOT%{_bindir}/automake-1.8
+ln -s aclocal-%{amversion} $RPM_BUILD_ROOT%{_bindir}/aclocal-1.8
 
 rm -f $RPM_BUILD_ROOT/%{_infodir}/*
 install -m 644 doc/%{name}.info* $RPM_BUILD_ROOT/%{_infodir}/
-
-perl -p -i -e 's|\(automake\)Extending aclocal|(%{name})Extending aclocal|' \
-  $RPM_BUILD_ROOT/%{_bindir}/aclocal-%{amversion}
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/aclocal
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%pre
+if [ "$1" = 1 ]; then
+  update-alternatives --remove automake %{_bindir}/automake-1.8
+  update-alternatives --remove automake %{_bindir}/automake-1.9
+#  if [ -L %{_bindir}/automake ]; then
+#    rm -f %{_bindir}/automake
+#  fi
+#  if [ -L %{_bindir}/aclocal ]; then
+#    rm -f %{_bindir}/aclocal
+#  fi
+fi
+
 %post
 %_install_info %name.info
-update-alternatives \
-	--install %{_bindir}/automake automake %{_bindir}/automake-%{amversion} 30 \
-	--slave   %{_bindir}/aclocal  aclocal  %{_bindir}/aclocal-%{amversion}
 
 %preun
 %_remove_install_info %name.info
-if [ $1 = 0 ]; then
-	update-alternatives --remove automake %{_bindir}/automake-%{amversion}
-fi
 
 %files
 %defattr(-,root,root)
 %doc AUTHORS COPYING ChangeLog NEWS README THANKS TODO
-%{_bindir}/*
+%{_bindir}/automake
+%{_bindir}/aclocal
+%{_bindir}/automake-%{version}
+%{_bindir}/aclocal-%{version}
+%{_bindir}/automake-1.8
+%{_bindir}/aclocal-1.8
 %{_datadir}/automake*
 %{_infodir}/automake*
 %{_datadir}/aclocal*
+%{_datadir}/doc/automake
 
