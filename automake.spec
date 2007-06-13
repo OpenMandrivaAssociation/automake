@@ -81,6 +81,9 @@ install -m 644 doc/%{name}.info* $RPM_BUILD_ROOT/%{_infodir}/
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/aclocal
 
+# %%doc doesn't work
+cp AUTHORS COPYING ChangeLog NEWS README THANKS TODO $RPM_BUILD_ROOT%{_datadir}/doc/automake/
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -98,7 +101,6 @@ fi
 
 %files
 %defattr(-,root,root)
-%doc AUTHORS COPYING ChangeLog NEWS README THANKS TODO
 %{_bindir}/automake
 %{_bindir}/aclocal
 %{_bindir}/automake-%{version}
