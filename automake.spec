@@ -1,5 +1,5 @@
 %define version 1.10
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define amversion 1.10
 
@@ -55,11 +55,10 @@ Autoconf package.
 
 %build
 # (Abel) config* don't understand noarch-mandrake-linux-gnu arch
-%define _target_platform i586-mandrake-linux-gnu
-
-%configure2_5x
+%configure2_5x --build=i586-%{_target_vendor}-%{_target_os}%{?_gnu}
 %make
 
+%check
 %if %docheck
 # (Abel) reqd2.test tries to make sure automake won't work if ltmain.sh
 # is not present. But automake behavior changed, now it can handle missing
