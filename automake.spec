@@ -1,5 +1,5 @@
 %define version 1.10
-%define release %mkrel 2
+%define release %mkrel 3
 
 %define amversion 1.10
 
@@ -75,6 +75,10 @@ rm -rf $RPM_BUILD_ROOT
 ln -s automake-%{amversion} $RPM_BUILD_ROOT%{_bindir}/automake-1.8
 ln -s aclocal-%{amversion} $RPM_BUILD_ROOT%{_bindir}/aclocal-1.8
 
+# provide -1.9 symlinks
+ln -s automake-%{amversion} $RPM_BUILD_ROOT%{_bindir}/automake-1.9
+ln -s aclocal-%{amversion} $RPM_BUILD_ROOT%{_bindir}/aclocal-1.9
+
 rm -f $RPM_BUILD_ROOT/%{_infodir}/*
 install -m 644 doc/%{name}.info* $RPM_BUILD_ROOT/%{_infodir}/
 
@@ -106,6 +110,8 @@ fi
 %{_bindir}/aclocal-%{version}
 %{_bindir}/automake-1.8
 %{_bindir}/aclocal-1.8
+%{_bindir}/automake-1.9
+%{_bindir}/aclocal-1.9
 %{_datadir}/automake*
 %{_infodir}/automake*
 %{_datadir}/aclocal*
