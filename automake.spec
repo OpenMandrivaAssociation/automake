@@ -25,8 +25,8 @@ Provides:	automake1.9 = %{version}-%{release}
 Obsoletes:	automake1.9
 Provides:	automake1.8 = %{version}-%{release}
 Obsoletes:	automake1.8
-Requires(post):	/sbin/install-info
-Requires(preun): /sbin/install-info
+Requires(post):	info-install
+Requires(preun): info-install
 Requires(post):	/usr/sbin/update-alternatives
 Requires(preun): /usr/sbin/update-alternatives
 
