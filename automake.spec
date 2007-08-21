@@ -27,8 +27,8 @@ Provides:	automake1.8 = %{version}-%{release}
 Obsoletes:	automake1.8
 Requires(post):	info-install
 Requires(preun): info-install
-Requires(post):	/usr/sbin/update-alternatives
-Requires(preun): /usr/sbin/update-alternatives
+Requires(post):	update-alternatives
+Requires(preun): update-alternatives
 
 # tests need these
 %if %docheck
