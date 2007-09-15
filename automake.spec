@@ -54,7 +54,7 @@ Autoconf package.
 %setup -q -n automake-%{version}
 
 %build
-# (Abel) config* don't understand noarch-mandrake-linux-gnu arch
+# (Abel) config* don't understand noarch-mandriva-linux-gnu arch
 %configure2_5x --build=i586-%{_target_vendor}-%{_target_os}%{?_gnu}
 %make
 
