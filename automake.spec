@@ -14,7 +14,6 @@ License:	GPL
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.bz2
 URL:		http://sources.redhat.com/automake/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildArch:	noarch
 
 Requires:	autoconf >= 1:2.58
