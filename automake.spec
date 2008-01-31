@@ -1,5 +1,5 @@
-%define version 1.10
-%define release %mkrel 5
+%define version 1.10.1
+%define release %mkrel 1
 
 %define amversion 1.10
 
@@ -106,8 +106,8 @@ fi
 %defattr(-,root,root)
 %{_bindir}/automake
 %{_bindir}/aclocal
-%{_bindir}/automake-%{version}
-%{_bindir}/aclocal-%{version}
+%{_bindir}/automake-%{amversion}
+%{_bindir}/aclocal-%{amversion}
 %{_bindir}/automake-1.8
 %{_bindir}/aclocal-1.8
 %{_bindir}/automake-1.9
@@ -116,4 +116,3 @@ fi
 %{_infodir}/automake*
 %{_datadir}/aclocal*
 %{_datadir}/doc/automake
-
