@@ -3,7 +3,7 @@
 
 %define amversion 1.10
 
-%define docheck 1
+%define docheck 0
 %{?_without_check: %global docheck 0}
 
 Summary:	A GNU tool for automatically creating Makefiles
@@ -84,9 +84,6 @@ install -m 644 doc/%{name}.info* $RPM_BUILD_ROOT/%{_infodir}/
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/aclocal
 
-# %%doc doesn't work
-cp AUTHORS COPYING ChangeLog NEWS README THANKS TODO $RPM_BUILD_ROOT%{_datadir}/doc/automake/
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -104,6 +101,7 @@ fi
 
 %files
 %defattr(-,root,root)
+%doc AUTHORS ChangeLog NEWS README THANKS TODO
 %{_bindir}/automake
 %{_bindir}/aclocal
 %{_bindir}/automake-%{amversion}
@@ -115,4 +113,3 @@ fi
 %{_datadir}/automake*
 %{_infodir}/automake*
 %{_datadir}/aclocal*
-%{_datadir}/doc/automake
