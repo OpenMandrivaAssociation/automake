@@ -1,5 +1,5 @@
 %define version 1.10.1
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define amversion 1.10
 
