@@ -10,7 +10,7 @@ Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	%{version}
 Release:	%{release}
-License:	GPLV2+
+License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.bz2
 URL:		http://sources.redhat.com/automake/
