@@ -1,5 +1,5 @@
-%define version 1.10.1
-%define release %mkrel 2
+%define version 1.10.2
+%define release %mkrel 1
 
 %define amversion 1.10
 
@@ -10,7 +10,7 @@ Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	%{version}
 Release:	%{release}
-License:	GPL
+License:	GPLV2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.bz2
 URL:		http://sources.redhat.com/automake/
