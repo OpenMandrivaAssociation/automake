@@ -1,5 +1,5 @@
 %define version 1.10.2
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define amversion 1.10
 
@@ -13,6 +13,8 @@ Release:	%{release}
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.bz2
+# Adds 'make dist-xz' target, backport from git
+Patch0:		automake-xz-support.patch
 URL:		http://sources.redhat.com/automake/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildArch:	noarch
@@ -52,6 +54,7 @@ Autoconf package.
 
 %prep
 %setup -q -n automake-%{version}
+%patch0 -p1 -b .xz~
 
 %build
 # (Abel) config* don't understand noarch-mandriva-linux-gnu arch
