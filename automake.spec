@@ -69,24 +69,24 @@ make check	# VERBOSE=1
 %endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall_std
 
 # provide -1.8 symlinks
-ln -s automake-%{amversion} $RPM_BUILD_ROOT%{_bindir}/automake-1.8
-ln -s aclocal-%{amversion} $RPM_BUILD_ROOT%{_bindir}/aclocal-1.8
+ln -s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.8
+ln -s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.8
 
 # provide -1.9 symlinks
-ln -s automake-%{amversion} $RPM_BUILD_ROOT%{_bindir}/automake-1.9
-ln -s aclocal-%{amversion} $RPM_BUILD_ROOT%{_bindir}/aclocal-1.9
+ln -s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.9
+ln -s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.9
 
-rm -f $RPM_BUILD_ROOT/%{_infodir}/*
-install -m 644 doc/%{name}.info* $RPM_BUILD_ROOT/%{_infodir}/
+rm -f %{buildroot}/%{_infodir}/*
+install -m 644 doc/%{name}.info* %{buildroot}/%{_infodir}/
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/aclocal
+mkdir -p %{buildroot}%{_datadir}/aclocal
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %pre
 if [ "$1" = 1 ]; then
