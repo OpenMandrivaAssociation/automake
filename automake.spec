@@ -1,6 +1,3 @@
-%define version 1.11.2
-%define release %mkrel 1
-
 %define amversion 1.11
 
 %define docheck 0
@@ -8,18 +5,17 @@
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	%{version}
-Release:	%{release}
+Version:	1.11.3
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Development/Other
-Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.bz2
+Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
 # Adds 'make dist-xz' target, backport from git
 URL:		http://sources.redhat.com/automake/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 BuildArch:	noarch
 
-Requires:	autoconf >= 1:2.58
-BuildRequires:	autoconf >= 1:2.59-4mdk
+Requires:	autoconf
+BuildRequires:	autoconf
 BuildRequires:	texinfo
 Conflicts:	automake1.5
 Provides:	automake1.9 = %{version}-%{release}
@@ -32,7 +28,7 @@ Requires(post):	update-alternatives
 Requires(preun): update-alternatives
 
 # tests need these
-%if %docheck
+%if %{docheck}
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	tetex-latex
@@ -52,7 +48,7 @@ Makefiles. If you install Automake, you will also need to install GNU's
 Autoconf package.
 
 %prep
-%setup -q -n automake-%{version}
+%setup -q
 
 %build
 # (Abel) config* don't understand noarch-mandriva-linux-gnu arch
@@ -60,33 +56,33 @@ Autoconf package.
 %make
 
 %check
-%if %docheck
+%if %{docheck}
 # (Abel) reqd2.test tries to make sure automake won't work if ltmain.sh
 # is not present. But automake behavior changed, now it can handle missing
 # libtool file as well, so this test is bogus.
-sed -e 's/reqd2.test//g' -i tests/Makefile
-make check	# VERBOSE=1
+%__sed -e 's/reqd2.test//g' -i tests/Makefile
+%__make check	# VERBOSE=1
 %endif
 
 %install
-rm -rf %{buildroot}
+%__rm -rf %{buildroot}
 %makeinstall_std
 
 # provide -1.8 symlinks
-ln -s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.8
-ln -s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.8
+%__ln_s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.8
+%__ln_s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.8
 
 # provide -1.9 symlinks
-ln -s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.9
-ln -s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.9
+%__ln_s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.9
+%__ln_s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.9
 
-rm -f %{buildroot}/%{_infodir}/*
-install -m 644 doc/%{name}.info* %{buildroot}/%{_infodir}/
+%__rm -f %{buildroot}/%{_infodir}/*
+%__install -m 644 doc/%{name}.info* %{buildroot}/%{_infodir}/
 
-mkdir -p %{buildroot}%{_datadir}/aclocal
+%__mkdir_p %{buildroot}%{_datadir}/aclocal
 
 %clean
-rm -rf %{buildroot}
+%__rm -rf %{buildroot}
 
 %pre
 if [ "$1" = 1 ]; then
@@ -95,10 +91,10 @@ if [ "$1" = 1 ]; then
 fi
 
 %post
-%_install_info %name.info
+%_install_info %{name}.info
 
 %preun
-%_remove_install_info %name.info
+%_remove_install_info %{name}.info
 
 %files
 %defattr(-,root,root)
