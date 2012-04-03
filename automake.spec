@@ -5,7 +5,7 @@
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	1.11.3
+Version:	1.11.4
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		Development/Other
@@ -22,8 +22,6 @@ Provides:	automake1.9 = %{version}-%{release}
 Obsoletes:	automake1.9
 Provides:	automake1.8 = %{version}-%{release}
 Obsoletes:	automake1.8
-Requires(post):	info-install
-Requires(preun): info-install
 Requires(post):	update-alternatives
 Requires(preun): update-alternatives
 
@@ -89,12 +87,6 @@ if [ "$1" = 1 ]; then
   update-alternatives --remove automake %{_bindir}/automake-1.8
   update-alternatives --remove automake %{_bindir}/automake-1.9
 fi
-
-%post
-%_install_info %{name}.info
-
-%preun
-%_remove_install_info %{name}.info
 
 %files
 %defattr(-,root,root)
