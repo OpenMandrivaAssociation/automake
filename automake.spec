@@ -1,11 +1,11 @@
-%define amversion 1.11
+%define amversion 1.12
 
 %define docheck 0
 %{?_without_check: %global docheck 0}
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	1.11.5
+Version:	1.12
 Release:	1
 License:	GPLv2+
 Group:		Development/Other
@@ -74,6 +74,10 @@ Autoconf package.
 %__ln_s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.9
 %__ln_s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.9
 
+# provide -1.11 symlinks
+%__ln_s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.11
+%__ln_s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.11
+
 %__rm -f %{buildroot}/%{_infodir}/*
 %__install -m 644 doc/%{name}.info* %{buildroot}/%{_infodir}/
 
@@ -86,11 +90,12 @@ Autoconf package.
 if [ "$1" = 1 ]; then
   update-alternatives --remove automake %{_bindir}/automake-1.8
   update-alternatives --remove automake %{_bindir}/automake-1.9
+  update-alternatives --remove automake %{_bindir}/automake-1.11
 fi
 
 %files
 %defattr(-,root,root)
-%doc AUTHORS ChangeLog NEWS README THANKS TODO
+%doc AUTHORS ChangeLog NEWS README THANKS
 %{_bindir}/automake
 %{_bindir}/aclocal
 %{_bindir}/automake-%{amversion}
@@ -99,10 +104,12 @@ fi
 %{_bindir}/aclocal-1.8
 %{_bindir}/automake-1.9
 %{_bindir}/aclocal-1.9
+%{_bindir}/automake-1.11
+%{_bindir}/aclocal-1.11
 %{_datadir}/automake*
 %{_infodir}/automake*
 %{_datadir}/aclocal*
-%{_mandir}/man1/aclocal-1.11.1*
+%{_mandir}/man1/aclocal-1.12*
 %{_mandir}/man1/aclocal.1*
-%{_mandir}/man1/automake-1.11.1*
+%{_mandir}/man1/automake-1.12*
 %{_mandir}/man1/automake.1*
