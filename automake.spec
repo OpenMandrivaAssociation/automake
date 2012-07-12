@@ -5,7 +5,7 @@
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	1.12.1
+Version:	1.12.2
 Release:	1
 License:	GPLv2+
 Group:		Development/Other
