@@ -1,11 +1,11 @@
-%define amversion 1.12
+%define amversion 1.13
 
 %define docheck 0
 %{?_without_check: %global docheck 0}
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	1.12.6
+Version:	1.13
 Release:	1
 License:	GPLv2+
 Group:		Development/Other
@@ -66,17 +66,11 @@ Autoconf package.
 %__rm -rf %{buildroot}
 %makeinstall_std
 
-# provide -1.8 symlinks
-%__ln_s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.8
-%__ln_s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.8
-
-# provide -1.9 symlinks
-%__ln_s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.9
-%__ln_s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.9
-
-# provide -1.11 symlinks
-%__ln_s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.11
-%__ln_s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.11
+# provide -1.x symlinks
+for i in 8 9 11 12; do
+	%__ln_s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.$i
+	%__ln_s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.$i
+done
 
 %__rm -f %{buildroot}/%{_infodir}/*
 %__install -m 644 doc/%{name}.info* %{buildroot}/%{_infodir}/
@@ -91,6 +85,7 @@ if [ "$1" = 1 ]; then
   update-alternatives --remove automake %{_bindir}/automake-1.8
   update-alternatives --remove automake %{_bindir}/automake-1.9
   update-alternatives --remove automake %{_bindir}/automake-1.11
+  update-alternatives --remove automake %{_bindir}/automake-1.12
 fi
 
 %files
@@ -106,10 +101,12 @@ fi
 %{_bindir}/aclocal-1.9
 %{_bindir}/automake-1.11
 %{_bindir}/aclocal-1.11
+%{_bindir}/automake-1.12
+%{_bindir}/aclocal-1.12
 %{_datadir}/automake*
 %{_infodir}/automake*
 %{_datadir}/aclocal*
-%{_mandir}/man1/aclocal-1.12*
+%{_mandir}/man1/aclocal-%{amversion}*
 %{_mandir}/man1/aclocal.1*
-%{_mandir}/man1/automake-1.12*
+%{_mandir}/man1/automake-%{amversion}*
 %{_mandir}/man1/automake.1*
