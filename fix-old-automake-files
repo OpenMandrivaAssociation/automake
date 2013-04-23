@@ -1,0 +1,5 @@
+#!/bin/sh
+# add missing brackets to AC_DEFUN statements, needed for automake >= 1.12
+find . -name "*.ac" -o -name "*.m4" -o -name configure.in |xargs perl -pi -e 's%(AC_DEFUN\s*\(\s*)([^,[]+)%\1\[\2\]%'
+# change AM_CONFIG_HEADER to AC_CONFIG_HEADERS, needed for automake >= 1.13
+find . -name configure.ac -o -name configure.in |xargs sed -i -e "s,AM_CONFIG_HEADER(,AC_CONFIG_HEADERS(,g"

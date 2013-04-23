@@ -6,15 +6,17 @@
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	1.13.1
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
-# Adds 'make dist-xz' target, backport from git
+Source100:	fix-old-automake-files
+# Automatically invoke fix-old-automake-files from aclocal
+Patch0:		automake-1.13.1-automatically-fix-old-files.patch
 URL:		http://sources.redhat.com/automake/
 BuildArch:	noarch
 
-Requires:	autoconf
+Requires:	autoconf sed
 BuildRequires:	autoconf
 BuildRequires:	texinfo
 Conflicts:	automake1.5
@@ -47,10 +49,10 @@ Autoconf package.
 
 %prep
 %setup -q
+%apply_patches
 
 %build
-# (Abel) config* don't understand noarch-mandriva-linux-gnu arch
-%configure2_5x --build=i586-%{_target_vendor}-%{_target_os}%{?_gnu}
+%configure2_5x
 %make
 
 %check
@@ -74,6 +76,7 @@ done
 
 %__rm -f %{buildroot}/%{_infodir}/*
 %__install -m 644 doc/%{name}.info* %{buildroot}/%{_infodir}/
+%__install -c -m 755 %SOURCE100 %buildroot%_bindir/
 
 %__mkdir_p %{buildroot}%{_datadir}/aclocal
 
@@ -103,6 +106,7 @@ fi
 %{_bindir}/aclocal-1.11
 %{_bindir}/automake-1.12
 %{_bindir}/aclocal-1.12
+%{_bindir}/fix-old-automake-files
 %{_datadir}/automake*
 %{_infodir}/automake*
 %{_datadir}/aclocal*
