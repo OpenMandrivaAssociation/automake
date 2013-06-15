@@ -1,4 +1,2 @@
-removed_sources:
-  automake-1.13.2.tar.xz: c4112e241478a1959a430430ccbd73eb1422fa44
 sources:
-  automake-1.13.3.tar.xz: 0a16f3e33bbaafb0e98cec947a25a1d812e0890b
+  automake-1.13.4.tar.xz: 20dac46d2699cb32c8102584db67e964c472b03e
