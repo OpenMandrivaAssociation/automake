@@ -1,7 +1,6 @@
 %define amversion 1.13
 
-%define docheck 0
-%{?_without_check: %global docheck 0}
+%bcond_with	check
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
@@ -28,7 +27,7 @@ Requires(post):	update-alternatives
 Requires(preun): update-alternatives
 
 # tests need these
-%if %{docheck}
+%if %{with check}
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	tetex-latex
@@ -55,33 +54,29 @@ Autoconf package.
 %configure2_5x
 %make
 
+%if %{with check}
 %check
-%if %{docheck}
 # (Abel) reqd2.test tries to make sure automake won't work if ltmain.sh
 # is not present. But automake behavior changed, now it can handle missing
 # libtool file as well, so this test is bogus.
-%__sed -e 's/reqd2.test//g' -i tests/Makefile
-%__make check	# VERBOSE=1
+sed -e 's/reqd2.test//g' -i tests/Makefile
+%make check VERBOSE=1
 %endif
 
 %install
-%__rm -rf %{buildroot}
 %makeinstall_std
 
 # provide -1.x symlinks
 for i in 8 9 11 12; do
-	%__ln_s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.$i
-	%__ln_s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.$i
+	ln -s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.$i
+	ln -s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.$i
 done
 
-%__rm -f %{buildroot}/%{_infodir}/*
-%__install -m 644 doc/%{name}.info* %{buildroot}/%{_infodir}/
-%__install -c -m 755 %SOURCE100 %buildroot%_bindir/
+rm %{buildroot}%{_infodir}/*
+install -m644 doc/%{name}.info* %{buildroot}%{_infodir}/
+install -m755 %{SOURCE100} %{buildroot}%{_bindir}/
 
-%__mkdir_p %{buildroot}%{_datadir}/aclocal
-
-%clean
-%__rm -rf %{buildroot}
+mkdir -p %{buildroot}%{_datadir}/aclocal
 
 %pre
 if [ "$1" = 1 ]; then
@@ -92,7 +87,6 @@ if [ "$1" = 1 ]; then
 fi
 
 %files
-%defattr(-,root,root)
 %doc AUTHORS ChangeLog NEWS README THANKS
 %{_bindir}/automake
 %{_bindir}/aclocal
