@@ -12,7 +12,7 @@ Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
 Source100:	fix-old-automake-files
 # Automatically invoke fix-old-automake-files from aclocal
-Patch0:		automake-1.13.1-automatically-fix-old-files.patch
+Patch0:		automake-1.13.4-automatically-fix-old-files.patch
 URL:		http://sources.redhat.com/automake/
 BuildArch:	noarch
 
@@ -49,7 +49,7 @@ Autoconf package.
 
 %prep
 %setup -q
-%apply_patches
+%patch0 -p1
 
 %build
 %configure2_5x
