@@ -4,6 +4,8 @@
 %{?_without_check: %global docheck 0}
 
 Summary:	A GNU tool for automatically creating Makefiles
+
+
 Name:		automake
 Version:	1.13.4
 Release:	1
@@ -65,7 +67,6 @@ Autoconf package.
 %endif
 
 %install
-%__rm -rf %{buildroot}
 %makeinstall_std
 
 # provide -1.x symlinks
@@ -76,12 +77,11 @@ done
 
 %__rm -f %{buildroot}/%{_infodir}/*
 %__install -m 644 doc/%{name}.info* %{buildroot}/%{_infodir}/
-%__install -c -m 755 %SOURCE100 %buildroot%_bindir/
+%__install -c -m 755 %SOURCE100 %{buildroot}%{_bindir}/
 
 %__mkdir_p %{buildroot}%{_datadir}/aclocal
 
 %clean
-%__rm -rf %{buildroot}
 
 %pre
 if [ "$1" = 1 ]; then
@@ -92,7 +92,6 @@ if [ "$1" = 1 ]; then
 fi
 
 %files
-%defattr(-,root,root)
 %doc AUTHORS ChangeLog NEWS README THANKS
 %{_bindir}/automake
 %{_bindir}/aclocal
