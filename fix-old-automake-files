@@ -11,5 +11,3 @@ find . -name configure.ac -o -name configure.in |xargs sed -i -e "s,AM_CONFIG_HE
 find . -name configure.in |while read r; do
 	mv $r ${r/configure.in/configure.ac}
 done
-# And adjust any bogus Makefiles etc. that have a dependency on configure.in
-find . -name "configure.*" -o -name "Makefile*" -o -name "*.m4" |xargs sed -i -e 's,configure.in,configure.ac,g'
