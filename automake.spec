@@ -26,12 +26,10 @@ Requires:	autoconf sed
 BuildRequires:	autoconf
 BuildRequires:	texinfo
 Conflicts:	automake1.5
-Provides:	automake1.9 = %{version}-%{release}
-Obsoletes:	automake1.9
-Provides:	automake1.8 = %{version}-%{release}
-Obsoletes:	automake1.8
+%rename		automake1.9
+%rename		automake1.8
 Requires(post):	update-alternatives
-Requires(preun): update-alternatives
+Requires(preun):update-alternatives
 
 # tests need these
 %if %{with check}
