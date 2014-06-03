@@ -1,5 +1,5 @@
---- automake-1.13.4/aclocal.in.fix~	2013-06-14 14:31:35.000000000 +0200
-+++ automake-1.13.4/aclocal.in	2013-08-05 22:48:24.889705876 +0200
+--- automake-1.13.4/bin/aclocal.in.fix~	2013-06-14 14:31:35.000000000 +0200
++++ automake-1.13.4/bin/aclocal.in	2013-08-05 22:48:24.889705876 +0200
 @@ -81,6 +81,9 @@ my @diff_command;
  # --dry-run
  my $dry_run = 0;
