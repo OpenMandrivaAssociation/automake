@@ -5,13 +5,20 @@
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	1.14.1
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
 Source100:	fix-old-automake-files
 # Automatically invoke fix-old-automake-files from aclocal
 Patch0:		automake-1.13.4-automatically-fix-old-files.patch
+# Something changed in Perl 5.18 and the testsuite started to fail because
+# of random looping in hashes items.  Upstream will probably start sorting of
+# hash items by default for this failing case ~> we just don't resist on its
+# order for now (only testsuite change).
+# ~> Downstream
+# ~> http://lists.gnu.org/archive/html/bug-automake/2013-07/msg00022.html
+Patch1:		automake-1.13.4-hash-order-workaround.patch
 URL:		http://sources.redhat.com/automake/
 BuildArch:	noarch
 
@@ -48,7 +55,8 @@ Autoconf package.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch0 -p1 -b .fixoldam~
+%patch1 -p1 -b .hash_order~
 
 %build
 %configure2_5x
