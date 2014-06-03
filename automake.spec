@@ -1,11 +1,11 @@
-%define amversion 1.13
+%define amversion 1.14
 
 %bcond_with	check
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	1.13.4
-Release:	1
+Version:	1.14.1
+Release:	2
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
@@ -100,6 +100,8 @@ fi
 %{_bindir}/aclocal-1.11
 %{_bindir}/automake-1.12
 %{_bindir}/aclocal-1.12
+%{_bindir}/automake-1.13
+%{_bindir}/aclocal-1.13
 %{_bindir}/fix-old-automake-files
 %{_datadir}/automake*
 %{_infodir}/automake*
