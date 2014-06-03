@@ -75,7 +75,7 @@ sed -e 's/reqd2.test//g' -i tests/Makefile
 %makeinstall_std
 
 # provide -1.x symlinks
-for i in 8 9 11 12; do
+for i in 8 9 11 12 13; do
 	ln -s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.$i
 	ln -s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.$i
 done
