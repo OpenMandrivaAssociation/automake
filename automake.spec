@@ -1,18 +1,24 @@
-%define amversion 1.13
+%define amversion 1.14
 
-%define docheck 0
-%{?_without_check: %global docheck 0}
+%bcond_with	check
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	1.13.4
+Version:	1.14.1
 Release:	1
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
 Source100:	fix-old-automake-files
 # Automatically invoke fix-old-automake-files from aclocal
-Patch0:		automake-1.13.1-automatically-fix-old-files.patch
+Patch0:		automake-1.13.4-automatically-fix-old-files.patch
+# Something changed in Perl 5.18 and the testsuite started to fail because
+# of random looping in hashes items.  Upstream will probably start sorting of
+# hash items by default for this failing case ~> we just don't resist on its
+# order for now (only testsuite change).
+# ~> Downstream
+# ~> http://lists.gnu.org/archive/html/bug-automake/2013-07/msg00022.html
+Patch1:		automake-1.13.4-hash-order-workaround.patch
 URL:		http://sources.redhat.com/automake/
 BuildArch:	noarch
 
@@ -20,15 +26,13 @@ Requires:	autoconf sed
 BuildRequires:	autoconf
 BuildRequires:	texinfo
 Conflicts:	automake1.5
-Provides:	automake1.9 = %{version}-%{release}
-Obsoletes:	automake1.9
-Provides:	automake1.8 = %{version}-%{release}
-Obsoletes:	automake1.8
+%rename		automake1.9
+%rename		automake1.8
 Requires(post):	update-alternatives
-Requires(preun): update-alternatives
+Requires(preun):update-alternatives
 
 # tests need these
-%if %{docheck}
+%if %{with check}
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	tetex-latex
@@ -49,39 +53,36 @@ Autoconf package.
 
 %prep
 %setup -q
-%apply_patches
+%patch0 -p1 -b .fixoldam~
+%patch1 -p1 -b .hash_order~
 
 %build
 %configure2_5x
 %make
 
+%if %{with check}
 %check
-%if %{docheck}
 # (Abel) reqd2.test tries to make sure automake won't work if ltmain.sh
 # is not present. But automake behavior changed, now it can handle missing
 # libtool file as well, so this test is bogus.
-%__sed -e 's/reqd2.test//g' -i tests/Makefile
-%__make check	# VERBOSE=1
+sed -e 's/reqd2.test//g' -i tests/Makefile
+%make check VERBOSE=1
 %endif
 
 %install
-%__rm -rf %{buildroot}
 %makeinstall_std
 
 # provide -1.x symlinks
-for i in 8 9 11 12; do
-	%__ln_s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.$i
-	%__ln_s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.$i
+for i in 8 9 11 12 13; do
+	ln -s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.$i
+	ln -s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.$i
 done
 
-%__rm -f %{buildroot}/%{_infodir}/*
-%__install -m 644 doc/%{name}.info* %{buildroot}/%{_infodir}/
-%__install -c -m 755 %SOURCE100 %buildroot%_bindir/
+rm %{buildroot}%{_infodir}/*
+install -m644 doc/%{name}.info* %{buildroot}%{_infodir}/
+install -m755 %{SOURCE100} %{buildroot}%{_bindir}/
 
-%__mkdir_p %{buildroot}%{_datadir}/aclocal
-
-%clean
-%__rm -rf %{buildroot}
+mkdir -p %{buildroot}%{_datadir}/aclocal
 
 %pre
 if [ "$1" = 1 ]; then
@@ -92,7 +93,6 @@ if [ "$1" = 1 ]; then
 fi
 
 %files
-%defattr(-,root,root)
 %doc AUTHORS ChangeLog NEWS README THANKS
 %{_bindir}/automake
 %{_bindir}/aclocal
@@ -106,6 +106,8 @@ fi
 %{_bindir}/aclocal-1.11
 %{_bindir}/automake-1.12
 %{_bindir}/aclocal-1.12
+%{_bindir}/automake-1.13
+%{_bindir}/aclocal-1.13
 %{_bindir}/fix-old-automake-files
 %{_datadir}/automake*
 %{_infodir}/automake*
