@@ -3,11 +3,19 @@ if [ "$1" = "--fix-ac-defun" ]; then
 	# add missing brackets to AC_DEFUN statements, needed for automake >= 1.12
 	# Optional because that breaks some rather obscure stripts like gnulib's iconv detection
 	# and by now most packages have been fixed.
-	find . -name "*.ac" -o -name "*.m4" -o -name configure.in |xargs perl -pi -e 's%(AC_DEFUN\s*\(\s*)([^,[]+)%\1\[\2\]%'
+	find . -name "*.ac" -o -name "*.m4" -o -name configure.in |while read r; do
+		perl -pi -e 's%(AC_DEFUN\s*\(\s*)([^,[]+)%\1\[\2\]%' "$r"
+	done
 fi
 # change AM_CONFIG_HEADER to AC_CONFIG_HEADERS, needed for automake >= 1.13
-find . -name configure.ac -o -name configure.in |xargs sed -i -e "s,AM_CONFIG_HEADER(,AC_CONFIG_HEADERS(,g"
+find . -name configure.ac -o -name configure.in |while read r; do
+	sed -i -e "s,AM_CONFIG_HEADER(,AC_CONFIG_HEADERS(,g" "$r"
+done
 # Rename configure.in to configure.ac, for autoconv >= 2.70, automake >= 2.0
 find . -name configure.in |while read r; do
-	mv $r ${r/configure.in/configure.ac}
+	mv "$r" "${r/configure.in/configure.ac}"
+done
+# And adjust any bogus Makefiles etc. that have a dependency on configure.in
+find . -name "configure.*" -o -name "Makefile*" -o -name "*.m4" |while read r; do
+	sed -i -e 's,configure\.in,configure.ac,g' "$r"
 done
