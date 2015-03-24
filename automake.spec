@@ -5,7 +5,7 @@
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	1.15
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
@@ -73,7 +73,7 @@ sed -e 's/reqd2.test//g' -i tests/Makefile
 %makeinstall_std
 
 # provide -1.x symlinks
-for i in 8 9 11 12 13; do
+for i in 8 9 11 12 13 14; do
 	ln -s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.$i
 	ln -s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.$i
 done
@@ -108,6 +108,8 @@ fi
 %{_bindir}/aclocal-1.12
 %{_bindir}/automake-1.13
 %{_bindir}/aclocal-1.13
+%{_bindir}/automake-1.14
+%{_bindir}/aclocal-1.14
 %{_bindir}/fix-old-automake-files
 %{_datadir}/automake*
 %{_infodir}/automake*
