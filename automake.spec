@@ -57,6 +57,7 @@ Autoconf package.
 %patch1 -p1 -b .hash_order~
 
 %build
+%define _disable_rebuild_configure 1
 %configure
 %make
 
