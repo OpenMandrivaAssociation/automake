@@ -5,7 +5,7 @@
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	1.15
-Release:	5
+Release:	6
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
@@ -19,6 +19,7 @@ Patch0:		automake-1.13.4-automatically-fix-old-files.patch
 # ~> Downstream
 # ~> http://lists.gnu.org/archive/html/bug-automake/2013-07/msg00022.html
 Patch1:		automake-1.13.4-hash-order-workaround.patch
+Patch2:		automake-1.15-perl-escape-curly-bracket.patch
 URL:		http://sources.redhat.com/automake/
 BuildArch:	noarch
 
@@ -55,6 +56,7 @@ Autoconf package.
 %setup -q
 %patch0 -p1 -b .fixoldam~
 %patch1 -p1 -b .hash_order~
+%patch2 -p1
 
 %build
 %define _disable_rebuild_configure 1
