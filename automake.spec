@@ -5,7 +5,7 @@
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	1.15
-Release:	7
+Release:	8
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
@@ -89,10 +89,10 @@ mkdir -p %{buildroot}%{_datadir}/aclocal
 
 %pre
 if [ "$1" = 1 ]; then
-  update-alternatives --remove automake %{_bindir}/automake-1.8
-  update-alternatives --remove automake %{_bindir}/automake-1.9
-  update-alternatives --remove automake %{_bindir}/automake-1.11
-  update-alternatives --remove automake %{_bindir}/automake-1.12
+  update-alternatives --remove automake %{_bindir}/automake-1.8 || :
+  update-alternatives --remove automake %{_bindir}/automake-1.9 || :
+  update-alternatives --remove automake %{_bindir}/automake-1.11 || :
+  update-alternatives --remove automake %{_bindir}/automake-1.12 || :
 fi
 
 %files
