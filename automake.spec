@@ -5,7 +5,7 @@
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	1.15.1
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
@@ -28,8 +28,7 @@ BuildRequires:	texinfo
 Conflicts:	automake1.5
 %rename		automake1.9
 %rename		automake1.8
-Requires(post):	update-alternatives
-Requires(preun):update-alternatives
+Requires(post,preun):	chkconfig >= 1.10
 
 # tests need these
 %if %{with check}
