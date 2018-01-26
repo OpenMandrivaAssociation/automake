@@ -29,7 +29,7 @@ BuildRequires:	texinfo
 Conflicts:	automake1.5
 %rename		automake1.9
 %rename		automake1.8
-Requires(pre):	chkconfig >= 1.10
+Requires(pre):	rpm-helper >= 0.24.17-2
 Requires(pre):	/bin/sh
 
 # tests need these
