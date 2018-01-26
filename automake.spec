@@ -22,13 +22,15 @@ Patch1:		automake-1.13.4-hash-order-workaround.patch
 URL:		http://sources.redhat.com/automake/
 BuildArch:	noarch
 
-Requires:	autoconf sed
+Requires:	autoconf
+Requires:	sed
 BuildRequires:	autoconf
 BuildRequires:	texinfo
 Conflicts:	automake1.5
 %rename		automake1.9
 %rename		automake1.8
-Requires(post,preun):	chkconfig >= 1.10
+Requires(pre):	chkconfig >= 1.10
+Requires(pre):	/bin/sh
 
 # tests need these
 %if %{with check}
