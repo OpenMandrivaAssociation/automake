@@ -5,7 +5,7 @@
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	1.15.1
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
@@ -84,14 +84,6 @@ install -m644 doc/%{name}.info* %{buildroot}%{_infodir}/
 install -m755 %{SOURCE100} %{buildroot}%{_bindir}/
 
 mkdir -p %{buildroot}%{_datadir}/aclocal
-
-%pre
-if [ "$1" = 1 ]; then
-  update-alternatives --remove automake %{_bindir}/automake-1.8 || :
-  update-alternatives --remove automake %{_bindir}/automake-1.9 || :
-  update-alternatives --remove automake %{_bindir}/automake-1.11 || :
-  update-alternatives --remove automake %{_bindir}/automake-1.12 || :
-fi
 
 %files
 %doc AUTHORS NEWS README THANKS
