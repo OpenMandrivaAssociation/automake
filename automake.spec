@@ -101,6 +101,8 @@ mkdir -p %{buildroot}%{_datadir}/aclocal
 %{_bindir}/aclocal-1.13
 %{_bindir}/automake-1.14
 %{_bindir}/aclocal-1.14
+%{_bindir}/automake-1.15
+%{_bindir}/aclocal-1.15
 %{_bindir}/fix-old-automake-files
 %{_datadir}/automake*
 %{_infodir}/automake*
