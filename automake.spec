@@ -1,11 +1,11 @@
-%define amversion 1.15
+%define amversion 1.16
 
 %bcond_with	check
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	1.15.1
-Release:	3
+Version:	1.16
+Release:	1
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
@@ -29,8 +29,6 @@ BuildRequires:	texinfo
 Conflicts:	automake1.5
 %rename		automake1.9
 %rename		automake1.8
-Requires(pre):	rpm-helper >= 0.24.17-2
-Requires(pre):	/bin/sh
 
 # tests need these
 %if %{with check}
@@ -74,7 +72,7 @@ sed -e 's/reqd2.test//g' -i tests/Makefile
 %makeinstall_std
 
 # provide -1.x symlinks
-for i in 8 9 11 12 13 14; do
+for i in 8 9 11 12 13 14 15; do
 	ln -s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.$i
 	ln -s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.$i
 done
