@@ -4,7 +4,7 @@
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	1.16
+Version:	1.16.1
 Release:	1
 License:	GPLv2+
 Group:		Development/Other
@@ -111,3 +111,4 @@ mkdir -p %{buildroot}%{_datadir}/aclocal
 %{_mandir}/man1/aclocal.1*
 %{_mandir}/man1/automake-%{amversion}*
 %{_mandir}/man1/automake.1*
+%doc %{_docdir}/automake
