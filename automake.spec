@@ -5,7 +5,7 @@
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	1.16.1
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
