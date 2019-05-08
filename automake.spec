@@ -30,7 +30,6 @@ Requires:	sed
 BuildRequires:	autoconf
 BuildRequires:	texinfo
 BuildRequires:	make
-BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(Thread::Queue)
 BuildRequires:	perl(threads)
