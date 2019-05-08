@@ -1,11 +1,14 @@
 %define amversion 1.16
 
 %bcond_with	check
+# remove bogus Automake perl dependencies and provides
+%global __requires_exclude perl\\(Automake::.*\\)
+%global __provides_exclude perl\\(Automake::.*\\)
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	1.16.1
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
@@ -26,6 +29,11 @@ Requires:	autoconf
 Requires:	sed
 BuildRequires:	autoconf
 BuildRequires:	texinfo
+BuildRequires:	make
+BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
+BuildRequires:	perl(Thread::Queue)
+BuildRequires:	perl(threads)
 Conflicts:	automake1.5
 %rename		automake1.9
 %rename		automake1.8
@@ -51,13 +59,12 @@ Makefiles. If you install Automake, you will also need to install GNU's
 Autoconf package.
 
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
 
 %build
 %define _disable_rebuild_configure 1
 %configure
-%make
+%make_build
 
 %if %{with check}
 %check
@@ -65,11 +72,11 @@ Autoconf package.
 # is not present. But automake behavior changed, now it can handle missing
 # libtool file as well, so this test is bogus.
 sed -e 's/reqd2.test//g' -i tests/Makefile
-%make check VERBOSE=1
+make check VERBOSE=1
 %endif
 
 %install
-%makeinstall_std
+%make_install
 
 # provide -1.x symlinks
 for i in 8 9 11 12 13 14 15; do
