@@ -1,13 +1,13 @@
 %define amversion 1.16
 
-%bcond_with	check
+%bcond_with check
 # remove bogus Automake perl dependencies and provides
 %global __requires_exclude perl\\(Automake::.*\\)
 %global __provides_exclude perl\\(Automake::.*\\)
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	1.16.2
+Version:	1.16.3
 Release:	1
 License:	GPLv2+
 Group:		Development/Other
@@ -79,8 +79,8 @@ make check VERBOSE=1
 
 # provide -1.x symlinks
 for i in 8 9 11 12 13 14 15; do
-	ln -s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.$i
-	ln -s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.$i
+    ln -s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.$i
+    ln -s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.$i
 done
 
 rm %{buildroot}%{_infodir}/*
