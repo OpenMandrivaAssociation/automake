@@ -7,7 +7,7 @@
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	1.16.3
+Version:	1.16.4
 Release:	1
 License:	GPLv2+
 Group:		Development/Other
