@@ -8,7 +8,7 @@
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	1.16.4
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Development/Other
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
@@ -111,10 +111,10 @@ mkdir -p %{buildroot}%{_datadir}/aclocal
 %{_bindir}/aclocal-1.15
 %{_bindir}/fix-old-automake-files
 %{_datadir}/automake*
-%{_infodir}/automake*
+%doc %{_infodir}/automake*
 %{_datadir}/aclocal*
-%{_mandir}/man1/aclocal-%{amversion}*
-%{_mandir}/man1/aclocal.1*
-%{_mandir}/man1/automake-%{amversion}*
-%{_mandir}/man1/automake.1*
+%doc %{_mandir}/man1/aclocal-%{amversion}*
+%doc %{_mandir}/man1/aclocal.1*
+%doc %{_mandir}/man1/automake-%{amversion}*
+%doc %{_mandir}/man1/automake.1*
 %doc %{_docdir}/automake
