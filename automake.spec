@@ -1,4 +1,8 @@
-%define amversion 1.16
+%define api_version 1.16
+%define _disable_rebuild_configure 1
+	
+# do not mangle shebang in files which are part of bootstraped project
+%global __brp_mangle_shebangs_exclude_from /usr/share/automake-%{api_version}
 
 %bcond_with check
 # remove bogus Automake perl dependencies and provides
@@ -7,10 +11,11 @@
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	1.16.4
-Release:	2
+Version:	1.16.5
+Release:	1
 License:	GPLv2+
 Group:		Development/Other
+URL:		http://www.gnu.org/software/automake/
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
 Source100:	fix-old-automake-files
 # Automatically invoke fix-old-automake-files from aclocal
@@ -22,11 +27,8 @@ Patch0:		automake-1.13.4-automatically-fix-old-files.patch
 # ~> Downstream
 # ~> http://lists.gnu.org/archive/html/bug-automake/2013-07/msg00022.html
 Patch1:		automake-1.13.4-hash-order-workaround.patch
-URL:		http://sources.redhat.com/automake/
 BuildArch:	noarch
-
 Requires:	autoconf
-Requires:	sed
 BuildRequires:	autoconf
 BuildRequires:	texinfo
 BuildRequires:	make
@@ -61,7 +63,6 @@ Autoconf package.
 %autosetup -p1
 
 %build
-%define _disable_rebuild_configure 1
 %configure
 %make_build
 
@@ -79,8 +80,8 @@ make check VERBOSE=1
 
 # provide -1.x symlinks
 for i in 8 9 11 12 13 14 15; do
-    ln -s automake-%{amversion} %{buildroot}%{_bindir}/automake-1.$i
-    ln -s aclocal-%{amversion} %{buildroot}%{_bindir}/aclocal-1.$i
+    ln -s automake-%{api_version} %{buildroot}%{_bindir}/automake-1.$i
+    ln -s aclocal-%{api_version} %{buildroot}%{_bindir}/aclocal-1.$i
 done
 
 rm %{buildroot}%{_infodir}/*
@@ -93,8 +94,8 @@ mkdir -p %{buildroot}%{_datadir}/aclocal
 %doc AUTHORS NEWS README THANKS
 %{_bindir}/automake
 %{_bindir}/aclocal
-%{_bindir}/automake-%{amversion}
-%{_bindir}/aclocal-%{amversion}
+%{_bindir}/automake-%{api_version}
+%{_bindir}/aclocal-%{api_version}
 %{_bindir}/automake-1.8
 %{_bindir}/aclocal-1.8
 %{_bindir}/automake-1.9
@@ -113,8 +114,8 @@ mkdir -p %{buildroot}%{_datadir}/aclocal
 %{_datadir}/automake*
 %doc %{_infodir}/automake*
 %{_datadir}/aclocal*
-%doc %{_mandir}/man1/aclocal-%{amversion}*
+%doc %{_mandir}/man1/aclocal-%{api_version}*
 %doc %{_mandir}/man1/aclocal.1*
-%doc %{_mandir}/man1/automake-%{amversion}*
+%doc %{_mandir}/man1/automake-%{api_version}*
 %doc %{_mandir}/man1/automake.1*
 %doc %{_docdir}/automake
