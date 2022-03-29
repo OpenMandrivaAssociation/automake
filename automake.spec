@@ -12,7 +12,7 @@
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	1.16.5
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Development/Other
 URL:		http://www.gnu.org/software/automake/
@@ -91,7 +91,6 @@ install -m755 %{SOURCE100} %{buildroot}%{_bindir}/
 mkdir -p %{buildroot}%{_datadir}/aclocal
 
 %files
-%doc AUTHORS NEWS README THANKS
 %{_bindir}/automake
 %{_bindir}/aclocal
 %{_bindir}/automake-%{api_version}
