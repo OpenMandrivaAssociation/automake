@@ -17,5 +17,5 @@ find . -name configure.in |while read r; do
 done
 # And adjust any bogus Makefiles etc. that have a dependency on configure.in
 find . -name "configure.*" -o -name "Makefile*" -o -name "*.m4" |while read r; do
-	sed -i -e 's,configure\.in,configure.ac,g' "$r"
+	sed -i -e 's,configure\.in$,configure.ac,g' -e 's,configure\.in ,configure.ac ,g' -e 's,configure\.in	,configure.ac	,g' "$r"
 done
