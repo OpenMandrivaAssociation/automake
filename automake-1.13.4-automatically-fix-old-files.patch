@@ -1,6 +1,7 @@
---- automake-1.13.4/bin/aclocal.in.fix~	2013-06-14 14:31:35.000000000 +0200
-+++ automake-1.13.4/bin/aclocal.in	2013-08-05 22:48:24.889705876 +0200
-@@ -81,6 +81,9 @@ my @diff_command;
+diff -up automake-1.17/bin/aclocal.in.1~ automake-1.17/bin/aclocal.in
+--- automake-1.17/bin/aclocal.in.1~	2024-07-12 07:04:24.000000000 +0200
++++ automake-1.17/bin/aclocal.in	2024-07-12 22:03:29.416855540 +0200
+@@ -78,6 +78,9 @@ my @diff_command;
  # --dry-run
  my $dry_run = 0;
  
@@ -10,19 +11,19 @@
  # configure.ac or configure.in.
  my $configure_ac;
  
-@@ -1098,6 +1101,7 @@ sub parse_arguments ()
-      'system-acdir=s'	=> sub { shift; @system_includes = @_; },
+@@ -1120,6 +1123,7 @@ sub parse_arguments ()
       'automake-acdir=s'	=> sub { shift; @automake_includes = @_; },
+      'aclocal-path=s'   => sub { shift; $aclocal_path = $_[0]; },
       'diff:s'		=> \$diff_command,
 +     'dont-fix'		=> \$dont_fix,
       'dry-run'		=> \$dry_run,
       'force'		=> \$force_output,
       'I=s'		=> \@user_includes,
-@@ -1169,6 +1173,7 @@ sub parse_ACLOCAL_PATH ()
+@@ -1211,6 +1215,7 @@ $aclocal_path = ($ENV{"ACLOCAL_PATH"})
  
  parse_WARNINGS;		    # Parse the WARNINGS environment variable.
  parse_arguments;
 +system("fix-old-automake-files") if(!$dont_fix);
- parse_ACLOCAL_PATH;
+ parse_ACLOCAL_PATH;	    # Should come after parse arguments.
  $configure_ac = require_configure_ac;
  

@@ -1,4 +1,4 @@
-%define api_version 1.16
+%define api_version 1.17
 %define _disable_rebuild_configure 1
 	
 # do not mangle shebang in files which are part of bootstraped project
@@ -11,8 +11,8 @@
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	1.16.5
-Release:	4
+Version:	1.17
+Release:	1
 License:	GPLv2+
 Group:		Development/Other
 URL:		http://www.gnu.org/software/automake/
