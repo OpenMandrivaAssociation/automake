@@ -15,7 +15,7 @@ Version:	1.17
 Release:	2
 License:	GPLv2+
 Group:		Development/Other
-URL:		http://www.gnu.org/software/automake/
+URL:		https://www.gnu.org/software/automake/
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
 Source100:	fix-old-automake-files
 # Automatically invoke fix-old-automake-files from aclocal
