@@ -29,6 +29,9 @@ Patch0:		automake-1.13.4-automatically-fix-old-files.patch
 Patch1:		automake-1.13.4-hash-order-workaround.patch
 BuildArch:	noarch
 Requires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:	autoconf
 BuildRequires:	texinfo
 BuildRequires:	make
