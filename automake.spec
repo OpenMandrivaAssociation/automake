@@ -12,7 +12,7 @@
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
 Version:	1.17
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Development/Other
 URL:		https://www.gnu.org/software/automake/
@@ -29,8 +29,8 @@ Patch0:		automake-1.13.4-automatically-fix-old-files.patch
 Patch1:		automake-1.13.4-hash-order-workaround.patch
 BuildArch:	noarch
 Requires:	autoconf
+Requires:	gnu-config
 BuildRequires:	automake
-BuildRequires:	libtool-base
 BuildRequires:	slibtool
 BuildRequires:	autoconf
 BuildRequires:	texinfo
@@ -38,6 +38,7 @@ BuildRequires:	make
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(Thread::Queue)
 BuildRequires:	perl(threads)
+BuildRequires:	gnu-config
 Conflicts:	automake1.5
 %rename		automake1.9
 %rename		automake1.8
@@ -92,6 +93,11 @@ install -m644 doc/%{name}.info* %{buildroot}%{_infodir}/
 install -m755 %{SOURCE100} %{buildroot}%{_bindir}/
 
 mkdir -p %{buildroot}%{_datadir}/aclocal
+
+# Replace config.{sub,guess} with links to the latest/system version
+rm %{buildroot}%{_datadir}/automake-%{api_version}/config.{guess,sub}
+ln -s %{_bindir}/config.guess %{buildroot}%{_datadir}/automake-%{api_version}/
+ln -s %{_bindir}/config.sub %{buildroot}%{_datadir}/automake-%{api_version}/
 
 %files
 %{_bindir}/automake
