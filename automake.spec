@@ -1,4 +1,4 @@
-%define api_version 1.19
+%define api_version 1.20
 %define _disable_rebuild_configure 1
 	
 # do not mangle shebang in files which are part of bootstraped project
@@ -11,9 +11,9 @@
 
 Summary:	A GNU tool for automatically creating Makefiles
 Name:		automake
-Version:	1.19
+Version:	1.20
 Release:	1
-License:	GPLv2+
+License:	GPLv3+
 Group:		Development/Other
 URL:		https://www.gnu.org/software/automake/
 Source0:	ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
@@ -83,7 +83,7 @@ make check VERBOSE=1
 %make_install
 
 # provide -1.x symlinks
-for i in 8 9 11 12 13 14 15 16 17 18; do
+for i in 8 9 11 12 13 14 15 16 17 18 19; do
     ln -s automake-%{api_version} %{buildroot}%{_bindir}/automake-1.$i
     ln -s aclocal-%{api_version} %{buildroot}%{_bindir}/aclocal-1.$i
 done
@@ -124,6 +124,8 @@ ln -s %{_bindir}/config.sub %{buildroot}%{_datadir}/automake-%{api_version}/
 %{_bindir}/aclocal-1.17
 %{_bindir}/automake-1.18
 %{_bindir}/aclocal-1.18
+%{_bindir}/automake-1.19
+%{_bindir}/aclocal-1.19
 %{_bindir}/fix-old-automake-files
 %{_datadir}/automake*
 %doc %{_infodir}/automake*
